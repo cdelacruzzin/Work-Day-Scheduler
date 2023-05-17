@@ -40,35 +40,48 @@ setInterval(function () {
 }, 1000);
 setInterval;
 
+
+
+
+
+
+
+
+var container;
+var textDiv; 
+var descriptionDiv;
+var saveBtn;
+var faSaveI;
+
+
 function setHourBlocks() {
-var container = $('<div>');
+container = $('<div>');
 container.addClass('row time-block future');
 body.append(container);
 
-var textDiv = $('<div>');
+textDiv = $('<div>');
 textDiv.addClass('col-2 col-md-1 hour text-center py-3');
 container.append(textDiv);
 
-var descriptionDiv = $('<textArea>');
+descriptionDiv = $('<textArea>');
 descriptionDiv.addClass('col-8 col-md-10 description');
 container.append(descriptionDiv);
 
 //still need to add aria-label="save"
-var saveBtn = $('<button>');
+saveBtn = $('<button>');
 saveBtn.addClass('btn saveBtn col-2 col-md-1');
 container.append(saveBtn);
 
 //still need to add aria-hidden="true"
-var faSaveI = $('<i>');
+faSaveI = $('<i>');
 faSaveI.addClass('fas fa-save');
 saveBtn.append(faSaveI);
 }
 
-
-
-
 for(var a = 9; a <= 17; a++){
   setHourBlocks();
-  
+  textDiv.text(a);
+
+
 
 }
