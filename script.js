@@ -62,11 +62,13 @@ container.append(saveBtn);
 var faSaveI = $('<i>');
 faSaveI.addClass('fas fa-save');
 saveBtn.append(faSaveI);
+}
 
 
 
 
+for(var a = 9; a <= 17; a++){
+  setHourBlocks();
+  
 
 }
-setHourBlocks();
-
