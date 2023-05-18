@@ -22,37 +22,22 @@
 // TODO: Add code to display the current date in the header of the page.
 
 
-{/* <div id="hour" class="row time-block future">
-      <div class="col-2 col-md-1 hour text-center py-3"></div>
-      <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
-      <button class="btn saveBtn col-2 col-md-1" aria-label="save">
-        <i class="fas fa-save" aria-hidden="true"></i>
-      </button>
-    </div> */}
-
 
 var body = $('#container');
-var today;
-//gets the current time and date, and prints it
-setInterval(function () {
-  today = dayjs();
-
-  $('#currentDay').text(today.format('MMM D, YYYY, h:mm:ss a'));
-}, 1000);
-setInterval;
-
-
-
-
-
-
-
 var container;
 var textDiv;
 var descriptionDiv;
 var saveBtn;
 var faSaveI;
 
+
+//gets the current time and date, and prints it
+setInterval(function () {
+  var today = dayjs();
+
+  $('#currentDay').text(today.format('MMM D, YYYY, h:mm:ss a'));
+}, 1000);
+setInterval;
 
 function createHourBlocks() {
   container = $('<div>');
@@ -70,11 +55,14 @@ function createHourBlocks() {
   //still need to add aria-label="save"
   saveBtn = $('<button>');
   saveBtn.addClass('btn saveBtn col-2 col-md-1');
+  saveBtn.attr('aria-label', 'save');
   container.append(saveBtn);
 
   //still need to add aria-hidden="true"
   faSaveI = $('<i>');
   faSaveI.addClass('fas fa-save');
+  faSaveI.attr('aria-hidden', 'true');
+  faSaveI.data('state', 'unsaved');
   saveBtn.append(faSaveI);
 }
 
@@ -83,27 +71,41 @@ for (var a = 9; a <= 17; a++) {
   setBlockTime(a);
 }
 
-
 function setBlockTime(hours) {
   var timeBlock = dayjs().set('hour', hours);
-  var tempTime = dayjs().set('hour', 13);
+  var tempTime = dayjs().set('hour', 13);//delete this! for test case only
   var today = dayjs();
   textDiv.text(timeBlock.format('h a'));
   compareTime(timeBlock, tempTime);
-
 }
 
 function compareTime(timeBlock, tempTime) {
   if (tempTime.isBefore(timeBlock)) {
-    console.log('isBefore. timeblock: ', timeBlock.format('h a'), "tempTime: ", tempTime.format('h a'));
     container.addClass('future');
   }
- if (tempTime.isAfter(timeBlock)) {
-    console.log('after. timeblock: ', timeBlock.format('h a'), "today: ", tempTime.format('h a'));
+  if (tempTime.isAfter(timeBlock)) {
     container.addClass('past');
   }
   if (tempTime.isSame(timeBlock)) {
-    console.log('isSame. timeblock: ', timeBlock.format('h a'), "today: ", tempTime.format('h a'));
     container.addClass('present');
   }
 }
+
+body.on('click', function(event) {
+  var element = event.target;
+  var textDescription = $(element).parent().siblings().eq(1);
+
+  
+  if (element.matches('i')) {
+    var state = element.getAttribute("data-state");
+
+    if(state === 'unsaved'){
+      element.dataset.state = "saved";
+    } else {
+      element.dataset.state = 'unsaved';
+    }
+    console.log(textDescription);
+  }
+});
+
+
