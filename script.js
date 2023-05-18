@@ -80,25 +80,24 @@ saveBtn.append(faSaveI);
 
 for(var a = 9; a <= 17; a++){
   setHourBlocks();
-  comparetime(a);
+  setTime(a);
 
-if(a<12) {
-  msg = a;
-msg +=' am';
-} else {
-  if (a ==12){
-    msg = 12;
-    msg += ' pm';
+
+  
+}
+
+function setTime(hours){
+  if(a<12) {
+    msg = a;
+  msg +=' am';
   } else {
-     msg = a-12;
-  msg += ' pm';
+    if (a ==12){
+      msg = 12;
+      msg += ' pm';
+    } else {
+       msg = a-12;
+    msg += ' pm';
+    }
   }
-}
   textDiv.text(msg);
-}
-
-
-
-function comparetime(hour){
-  console.log(hour.diff(today));
 }
