@@ -56,7 +56,7 @@ var faSaveI;
 
 function createHourBlocks() {
   container = $('<div>');
-  container.addClass('row time-block future');
+  container.addClass('row time-block');
   body.append(container);
 
   textDiv = $('<div>');
@@ -96,18 +96,14 @@ function setBlockTime(hours) {
 function compareTime(timeBlock, tempTime) {
   if (tempTime.isBefore(timeBlock)) {
     console.log('isBefore. timeblock: ', timeBlock.format('h a'), "tempTime: ", tempTime.format('h a'));
+    container.addClass('future');
   }
-
-
  if (tempTime.isAfter(timeBlock)) {
     console.log('after. timeblock: ', timeBlock.format('h a'), "today: ", tempTime.format('h a'));
+    container.addClass('past');
   }
-
   if (tempTime.isSame(timeBlock)) {
     console.log('isSame. timeblock: ', timeBlock.format('h a'), "today: ", tempTime.format('h a'));
+    container.addClass('present');
   }
-
-
-  
-
 }
