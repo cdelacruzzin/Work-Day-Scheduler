@@ -32,10 +32,10 @@
 
 
 var body = $('#container');
-
+var today;
   //gets the current time and date, and prints it
 setInterval(function () {
-  var today = dayjs();
+  today = dayjs();
  $('#currentDay').text(today.format('MMM D, YYYY, h:mm:ss a'));
 }, 1000);
 setInterval;
@@ -80,8 +80,25 @@ saveBtn.append(faSaveI);
 
 for(var a = 9; a <= 17; a++){
   setHourBlocks();
-  textDiv.text(a);
+  comparetime(a);
+
+if(a<12) {
+  msg = a;
+msg +=' am';
+} else {
+  if (a ==12){
+    msg = 12;
+    msg += ' pm';
+  } else {
+     msg = a-12;
+  msg += ' pm';
+  }
+}
+  textDiv.text(msg);
+}
 
 
 
+function comparetime(hour){
+  console.log(hour.diff(today));
 }
