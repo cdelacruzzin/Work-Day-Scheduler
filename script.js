@@ -36,10 +36,10 @@ var today;
 //gets the current time and date, and prints it
 setInterval(function () {
   today = dayjs();
+
   $('#currentDay').text(today.format('MMM D, YYYY, h:mm:ss a'));
 }, 1000);
 setInterval;
-
 
 
 
@@ -54,7 +54,7 @@ var saveBtn;
 var faSaveI;
 
 
-function setHourBlocks() {
+function createHourBlocks() {
   container = $('<div>');
   container.addClass('row time-block future');
   body.append(container);
@@ -79,15 +79,35 @@ function setHourBlocks() {
 }
 
 for (var a = 9; a <= 17; a++) {
-  setHourBlocks();
-  setTime(a);
-}
-var timeBlock
-function setTime(hours) {
-  timeBlock = dayjs().set('hour', hours).format('h a');
-  textDiv.text(timeBlock);
+  createHourBlocks();
+  setBlockTime(a);
 }
 
-function compareTime() {
+
+function setBlockTime(hours) {
+  var timeBlock = dayjs().set('hour', hours);
+  var tempTime = dayjs().set('hour', 13);
+  var today = dayjs();
+  textDiv.text(timeBlock.format('h a'));
+  compareTime(timeBlock, tempTime);
+
+}
+
+function compareTime(timeBlock, tempTime) {
+  if (tempTime.isBefore(timeBlock)) {
+    console.log('isBefore. timeblock: ', timeBlock.format('h a'), "tempTime: ", tempTime.format('h a'));
+  }
+
+
+ if (tempTime.isAfter(timeBlock)) {
+    console.log('after. timeblock: ', timeBlock.format('h a'), "today: ", tempTime.format('h a'));
+  }
+
+  if (tempTime.isSame(timeBlock)) {
+    console.log('isSame. timeblock: ', timeBlock.format('h a'), "today: ", tempTime.format('h a'));
+  }
+
+
+  
 
 }
