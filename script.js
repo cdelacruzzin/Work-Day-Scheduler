@@ -29,6 +29,9 @@ var textDiv;
 var descriptionDiv;
 var saveBtn;
 var faSaveI;
+var savedText = {
+
+}
 
 
 //gets the current time and date, and prints it
@@ -68,8 +71,20 @@ function createHourBlocks() {
 
 for (var a = 9; a <= 17; a++) {
   createHourBlocks();
+  setClasses(a);
   setBlockTime(a);
 }
+
+
+
+function setClasses(thisHour) {
+  var className = 'hour' + thisHour;
+  console.log(className);
+  descriptionDiv.addClass(className);
+  savedText.className = $('.'+className);
+  console.log(savedText.className);
+}
+
 
 function setBlockTime(hours) {
   var timeBlock = dayjs().set('hour', hours);
@@ -94,18 +109,19 @@ function compareTime(timeBlock, tempTime) {
 body.on('click', function(event) {
   var element = event.target;
   var textDescription = $(element).parent().siblings().eq(1);
-
-  
   if (element.matches('i')) {
     var state = element.getAttribute("data-state");
 
-    if(state === 'unsaved'){
+    if(state == 'unsaved'){
       element.dataset.state = "saved";
+      var desc =textDescription.val();
     } else {
       element.dataset.state = 'unsaved';
     }
-    console.log(textDescription);
+    console.log(desc, ' state: ', element.dataset);
   }
 });
+
+
 
 
