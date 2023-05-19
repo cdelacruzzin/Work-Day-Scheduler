@@ -76,15 +76,16 @@ for (var a = 9; a <= 17; a++) {
 }
 
 
-
+// "className" will represent a class with the current hour. e.g hour9, hour10 ...
+// adds "className" as a class in the description
+// dynamically creates a property in "savedText" obj with the key name of className
 function setClasses(thisHour) {
   var className = 'hour' + thisHour;
-  console.log(className);
   descriptionDiv.addClass(className);
-  savedText.className = $('.'+className);
-  console.log(savedText.className);
-}
+  savedText[className] = descriptionDiv;
 
+}
+console.log(savedText);
 
 function setBlockTime(hours) {
   var timeBlock = dayjs().set('hour', hours);
@@ -106,20 +107,30 @@ function compareTime(timeBlock, tempTime) {
   }
 }
 
-body.on('click', function(event) {
+body.on('click', function (event) {
   var element = event.target;
   var textDescription = $(element).parent().siblings().eq(1);
+  var textDescriptionClass = textDescription.attr('class');
+  
+
   if (element.matches('i')) {
     var state = element.getAttribute("data-state");
 
-    if(state == 'unsaved'){
+    if (state == 'unsaved') {
       element.dataset.state = "saved";
-      var desc =textDescription.val();
+      var desc = textDescription.val();
+      var selectedClass = textDescriptionClass.split(' ').filter(className => className.startsWith('hour'))[0];
+      // textDescriptionClass.split(' ') creates an array: ['col-8', 'col-md-10', 'description', 'hour9']
+      // .filter(className => className.startsWith('hour')) iterates over each classname in the array and checks if it starts with the string 'hour', and keeps the element with 'hour' in it.
+      savedText[selectedClass] = desc; // assigns the text value of the textDescription to the selectedClass property in the savedText object.
+
+      
+
     } else {
       element.dataset.state = 'unsaved';
     }
-    console.log(desc, ' state: ', element.dataset);
   }
+  
 });
 
 
