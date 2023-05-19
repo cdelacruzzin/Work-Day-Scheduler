@@ -69,11 +69,17 @@ function createHourBlocks() {
   saveBtn.append(faSaveI);
 }
 
-for (var a = 9; a <= 17; a++) {
+function init() {
+  for (var a = 9; a <= 17; a++) {
   createHourBlocks();
   setClasses(a);
   setBlockTime(a);
 }
+renderSavedText();
+}
+
+
+
 
 
 // "className" will represent a class with the current hour. e.g hour9, hour10 ...
@@ -136,11 +142,13 @@ body.on('click', function (event) {
 function renderSavedText() {
   // Use JSON.parse() to convert text to JavaScript object
   var lastText = JSON.parse(localStorage.getItem('savedText'));
+ var savedTextLen = Object.keys(savedText).length; // obtain an array containing the keys of the object. Then, we retrieve the length of that array using .length
 
-
-  
+for (var a = 0; a< savedTextLen; a++){
+  console.log(a);
 }
-
+}
+init();
 
 
 
