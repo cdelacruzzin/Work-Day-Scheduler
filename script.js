@@ -124,14 +124,18 @@ body.on('click', function (event) {
       // .filter(className => className.startsWith('hour')) iterates over each classname in the array and checks if it starts with the string 'hour', and keeps the element with 'hour' in it.
       savedText[selectedClass] = desc; // assigns the text value of the textDescription to the selectedClass property in the savedText object.
 
-      
-
+      localStorage.setItem("savedText", JSON.stringify(savedText));
     } else {
       element.dataset.state = 'unsaved';
     }
   }
   
 });
+
+
+function renderSavedText() {
+  
+}
 
 
 
