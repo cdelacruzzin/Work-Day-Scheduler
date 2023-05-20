@@ -112,7 +112,7 @@ body.on('click', function (event) {
 
   if (element.matches('i')) {
   
-console.log('first: ', state);
+console.log('first: ',state)
     if (state === 'unsaved') {
       elementBtn.toggleClass('bg-secondary');
       $(event.target).data("state", "saved");
@@ -128,6 +128,7 @@ console.log('first: ', state);
       localStorage.setItem("savedText", JSON.stringify(savedText)); // stores the object to local storage
     } else {
       $(event.target).data("state", "unsaved");
+      elementBtn.toggleClass("bg");
       // console.log(state);
     }
       
