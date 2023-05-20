@@ -47,22 +47,22 @@ function createHourBlocks() {
   saveBtn.append(faSaveI);
 }
 
-function init() {
-  
+function start() {
+
   for (var a = 9; a <= 17; a++) {
-  createHourBlocks();
-  setClasses(a);
-  setBlockTime(a);
+    createHourBlocks();
+    setClasses(a);
+    setBlockTime(a);
 
 
-  var className = 'hour' + a;
-  var lastText = JSON.parse(localStorage.getItem('savedText'));
-  
-  if (lastText[className] !== '') {
-    $("."+className).text(lastText[className]);
+    var className = 'hour' + a;
+    var lastText = JSON.parse(localStorage.getItem('savedText'));
+
+    if (lastText[className] !== '') {
+      $("." + className).text(lastText[className]);
+    }
+
   }
-
-}
 }
 
 
@@ -74,14 +74,11 @@ function setClasses(thisHour) {
   var className = 'hour' + thisHour;
   descriptionDiv.addClass(className);
   savedText[className] = descriptionDiv;
-  savedText[className]="";
- 
-
+  savedText[className] = "";
 }
 
 function setBlockTime(hours) {
   var timeBlock = dayjs().set('hour', hours);
-  var tempTime = dayjs().set('hour', 13);//delete this! for test case only
   var today = dayjs();
   textDiv.text(timeBlock.format('h a'));
   compareTime(timeBlock, today);
@@ -103,19 +100,19 @@ function compareTime(timeBlock, today) {
 }
 
 body.on('click', function (event) {
-  var element = event.target;
-  var textDescription = $(element).parent().siblings().eq(1);
-  var elementBtn =  $(element).parent();
-  var textDescriptionClass = textDescription.attr('class');
-  var state = $(event.target).data("state");
+
+  var element = event.target; 
+  var textDescription = $(element).parent().siblings().eq(1); // Selects description element within its container
+  var elementBtn = $(element).parent();// Parent element of the event target
+  var textDescriptionClass = textDescription.attr('class');// Class attribute of the description element
+  var state = $(event.target).data("state");// Value of the "state" data attribute
 
   if (element.matches('i')) {
-  
-console.log('first: ',state)
+
     if (state === 'unsaved') {
-      elementBtn.toggleClass('bg-secondary');
+      elementBtn.toggleClass('bg-secondary'); // Adds or removes the 'bg-secondary' class to/from the elementBtn
       $(event.target).data("state", "saved");
-      
+
       var desc = textDescription.val();
       var selectedClass = textDescriptionClass.split(' ').filter(className => className.startsWith('hour'))[0];
       // textDescriptionClass.split(' ') creates an array: ['col-8', 'col-md-10', 'description', 'hour9']
@@ -125,14 +122,14 @@ console.log('first: ',state)
       localStorage.setItem("savedText", JSON.stringify(savedText)); // stores the object to local storage
     } else {
       $(event.target).data("state", "unsaved");
-      elementBtn.toggleClass("bg-secondary");
+      elementBtn.toggleClass("bg-secondary");  // Adds or removes the 'bg-secondary' class to/from the elementBtn
     }
   }
- 
+
 });
 
 
-init();
+start();
 
 
 
