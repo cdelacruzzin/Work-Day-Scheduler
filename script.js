@@ -57,11 +57,12 @@ function init() {
 
   var className = 'hour' + a;
   var lastText = JSON.parse(localStorage.getItem('savedText'));
-  var s = lastText[className];
   
-  if (s === '') {
+  if (lastText[className] === '') {
     console.log("true",a);
   } else {
+
+    $("."+className).text(lastText[className]);
     console.log(lastText[className]);
   }
 
