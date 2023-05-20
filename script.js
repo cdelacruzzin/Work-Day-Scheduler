@@ -46,14 +46,13 @@ function createHourBlocks() {
   faSaveI.data('state', 'unsaved');
   saveBtn.append(faSaveI);
 }
-
+// iterates over a range of values 9-17, creates hour blocks, sets appropriate classes and time for each block, retrieves stored text data from localStorage, and updates the text content of the corresponding hour block if there is non-empty saved text available
 function start() {
 
   for (var a = 9; a <= 17; a++) {
     createHourBlocks();
     setClasses(a);
     setBlockTime(a);
-
 
     var className = 'hour' + a;
     var lastText = JSON.parse(localStorage.getItem('savedText'));
@@ -77,6 +76,7 @@ function setClasses(thisHour) {
   savedText[className] = "";
 }
 
+// sets a specific time block, updates the displayed time in a designated element, and performs additional operations based on the comparison between the time block and the current time.
 function setBlockTime(hours) {
   var timeBlock = dayjs().set('hour', hours);
   var today = dayjs();
@@ -87,9 +87,9 @@ function setBlockTime(hours) {
 
 
 function compareTime(timeBlock, today) {
-  container.children().eq(2).addClass('bg-primary');
+  container.children().eq(2).addClass('bg-primary');//sets the initial bg colour for the buttons
   if (today.isBefore(timeBlock)) {
-    container.children().eq(1).addClass('future');
+    container.children().eq(1).addClass('future'); //sets bg colour for the textarea based on past/present/future
   }
   if (today.isAfter(timeBlock)) {
     container.children().eq(1).addClass('past');
@@ -110,7 +110,7 @@ body.on('click', function (event) {
   if (element.matches('i')) {
 
     if (state === 'unsaved') {
-      elementBtn.toggleClass('bg-secondary'); // Adds or removes the 'bg-secondary' class to/from the elementBtn
+      elementBtn.toggleClass('bg-success'); // Adds or removes the 'bg-secondary' class to/from the elementBtn
       $(event.target).data("state", "saved");
 
       var desc = textDescription.val();
@@ -122,7 +122,7 @@ body.on('click', function (event) {
       localStorage.setItem("savedText", JSON.stringify(savedText)); // stores the object to local storage
     } else {
       $(event.target).data("state", "unsaved");
-      elementBtn.toggleClass("bg-secondary");  // Adds or removes the 'bg-secondary' class to/from the elementBtn
+      elementBtn.toggleClass("bg-success");  // Adds or removes the 'bg-secondary' class to/from the elementBtn
     }
   }
 
