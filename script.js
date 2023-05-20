@@ -19,7 +19,7 @@ setInterval;
 
 
 
-//creates divs for each hour form 9-5
+//creates divs for each hour form 9-1
 function createHourBlocks() {
   container = $('<div>');
   container.addClass('row time-block');
@@ -47,27 +47,42 @@ function createHourBlocks() {
   saveBtn.append(faSaveI);
 }
 
-function start() {
+function init() {
   
   for (var a = 9; a <= 17; a++) {
   createHourBlocks();
   setClasses(a);
   setBlockTime(a);
+
+
+  var className = 'hour' + a;
+  var lastText = JSON.parse(localStorage.getItem('savedText'));
+  var s = lastText[className];
+  
+  if (s === '') {
+    console.log("true",a);
+  } else {
+    console.log(lastText[className]);
+  }
+
+
+
 }
-renderSavedText();
 }
 
 
 // "className" will represent a class with the current hour. e.g hour9, hour10 ...
 // adds "className" as a class in the description
 // dynamically creates a property in "savedText" obj with the key name of className
+// initializes each key with an empty string.
 function setClasses(thisHour) {
   var className = 'hour' + thisHour;
   descriptionDiv.addClass(className);
   savedText[className] = descriptionDiv;
+  savedText[className]="";
+ 
 
 }
-// console.log(savedText);
 
 function setBlockTime(hours) {
   var timeBlock = dayjs().set('hour', hours);
@@ -109,11 +124,11 @@ body.on('click', function (event) {
 
       localStorage.setItem("savedText", JSON.stringify(savedText)); // stores the object to local storage
 
+      renderSavedText(savedText[selectedClass]);
     } else {
       element.dataset.state = 'unsaved';
     }
   }
-  // console.log(savedText);
  
 });
 
@@ -124,7 +139,7 @@ function renderSavedText(textDescription) {
 
 
 }
-start();
+init();
 
 
 
