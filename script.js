@@ -58,15 +58,10 @@ function init() {
   var className = 'hour' + a;
   var lastText = JSON.parse(localStorage.getItem('savedText'));
   
-  if (lastText[className] === '') {
-    console.log("true",a);
-  } else {
-
+  if (lastText[className] !== '') {
     $("."+className).text(lastText[className]);
     console.log(lastText[className]);
   }
-
-
 
 }
 }
@@ -93,53 +88,59 @@ function setBlockTime(hours) {
   compareTime(timeBlock, today);
 }
 
+
+
 function compareTime(timeBlock, today) {
+  container.children().eq(2).addClass('bg-primary');
   if (today.isBefore(timeBlock)) {
-    container.addClass('future');
+    container.children().eq(1).addClass('future');
   }
   if (today.isAfter(timeBlock)) {
-    container.addClass('past');
+    container.children().eq(1).addClass('past');
   }
   if (today.isSame(timeBlock)) {
-    container.addClass('present');
+    container.children().eq(1).addClass('present');
   }
 }
 
 body.on('click', function (event) {
   var element = event.target;
   var textDescription = $(element).parent().siblings().eq(1);
+  var elementBtn =  $(element).parent();
   var textDescriptionClass = textDescription.attr('class');
-  
+  var state = $(event.target).data("state");
 
   if (element.matches('i')) {
-    var state = element.getAttribute("data-state");
+  
+console.log('first: ', state);
+    if (state === 'unsaved') {
+      elementBtn.toggleClass('bg-secondary');
+      $(event.target).data("state", "saved");
 
-    if (state == 'unsaved') {
-      element.dataset.state = "saved";
+      // console.log(element, ": ",state);
+      
       var desc = textDescription.val();
       var selectedClass = textDescriptionClass.split(' ').filter(className => className.startsWith('hour'))[0];
       // textDescriptionClass.split(' ') creates an array: ['col-8', 'col-md-10', 'description', 'hour9']
       // .filter(className => className.startsWith('hour')) iterates over each classname in the array and checks if it starts with the string 'hour', and keeps the element with 'hour' in it.
 
       savedText[selectedClass] = desc; // assigns the text value of the textDescription to the selectedClass property in the savedText object.
-
       localStorage.setItem("savedText", JSON.stringify(savedText)); // stores the object to local storage
-
-      renderSavedText(savedText[selectedClass]);
     } else {
-      element.dataset.state = 'unsaved';
+      $(event.target).data("state", "unsaved");
+      // console.log(state);
     }
+      
+
+      
+    
+
+    console.log(element, ": ",state);
   }
  
 });
 
 
-function renderSavedText(textDescription) {
-  // Use JSON.parse() to convert text to JavaScript object
-  var lastText = JSON.parse(localStorage.getItem('savedText'));
-
-
-}
 init();
 
 
