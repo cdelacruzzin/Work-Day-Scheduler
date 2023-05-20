@@ -60,7 +60,6 @@ function init() {
   
   if (lastText[className] !== '') {
     $("."+className).text(lastText[className]);
-    console.log(lastText[className]);
   }
 
 }
@@ -116,8 +115,6 @@ console.log('first: ',state)
     if (state === 'unsaved') {
       elementBtn.toggleClass('bg-secondary');
       $(event.target).data("state", "saved");
-
-      // console.log(element, ": ",state);
       
       var desc = textDescription.val();
       var selectedClass = textDescriptionClass.split(' ').filter(className => className.startsWith('hour'))[0];
@@ -128,15 +125,8 @@ console.log('first: ',state)
       localStorage.setItem("savedText", JSON.stringify(savedText)); // stores the object to local storage
     } else {
       $(event.target).data("state", "unsaved");
-      elementBtn.toggleClass("bg");
-      // console.log(state);
+      elementBtn.toggleClass("bg-secondary");
     }
-      
-
-      
-    
-
-    console.log(element, ": ",state);
   }
  
 });
