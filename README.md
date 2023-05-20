@@ -6,6 +6,8 @@ By noticing the challenges faced by busy people in today's faced-paced world, I 
 ## Usage
 
 type in the tasks you plan to fulfil in each hor slot. Press the blue button on the right to save the task. If the button turns green, it has been saved to local storage. You can reload the page and see the tasks have been saved. Note that a green button marks a saved task. If you want to add another task, you will have to save all the tasks you want to be saved. 
+Preview:
+![preview:](./images/Capture.PNG);
 
 ## Credits
 -dayjs
